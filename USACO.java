@@ -5,6 +5,7 @@ public class USACO{
   public static int bronze(String filename) throws FileNotFoundException{
     File text = new File(filename);
     Scanner inf = new Scanner(text);
+
     //int[][] lake;
     int i = 1;
     int rows = 0;
@@ -14,11 +15,10 @@ public class USACO{
 
     //while (inf.hasNextLine()) {
       if (i == 1) {
-        File setupInfo = new File(inf.nextLine());
-        Scanner setup = new Scanner(setupInfo);
+        String setupInfo = inf.nextLine();
         int index = 0;
         while (setup.hasNext()) {
-          int num = Integer.parseInt(setup.next());
+          int num = Integer.parseInt(setupInfo.charAt(index));
           if (index == 0) {
             rows = num;
           }
@@ -42,6 +42,7 @@ public class USACO{
     System.out.println(n);
 
     return -10;
+
   }
 
   public static void main(String[] args) {
