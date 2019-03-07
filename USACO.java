@@ -31,7 +31,7 @@ public class USACO{
 
   public static int[][] cowStomping(int[][] map, int row, int col, int stomps) {
     int [][] surrounding = new int [][] { {-1, -1}, {-1, 0}, {-1, 1},
-                                          {0, -1}, {0, 1},
+                                          {0, -1}, {0, 0}, {0, 1},
                                           {1, -1}, {1, 0}, {1, 1}};
     int greatest = findGreatest(map, row, col, surrounding);
     while (stomps > 0) {
@@ -92,23 +92,32 @@ public class USACO{
         directions[j][k] = getNumber(directionInfo, k);
       }
     }
+
     //
     for (int p = 0; p < n; p++) {
       lake = cowStomping(lake, directions[p][0], directions[p][1], directions[p][2]);
+
+      String display = "";
+      for (int ro = 0; ro < rows; ro++) {
+        for (int c = 0; c < cols; c++) {
+          display += lake[ro][c] + " ";
+        }
+        display += "\n";
+      }
+      System.out.println(display);
+
     }
 
-
+    /*
     //to show lake map
     String display = "";
     for (int ro = 0; ro < n; ro++) {
       for (int c = 0; c < 3; c++) {
-        display += directions[ro][c] + " ";
+        display += lake[ro][c] + " ";
       }
       display += "\n";
     }
-    System.out.println(display);
-    System.out.println();
-
+    */
     return -10;
   }
 
