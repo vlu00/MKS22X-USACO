@@ -24,15 +24,13 @@ public class USACO{
     File text = new File(filename);
     Scanner inf = new Scanner(text);
 
-    //int[][] lake;
-    int i = 1;
     int rows = 0;
     int cols = 0;
     int elevation = 0;
     int n = 0;
 
     //while (inf.hasNextLine()) {
-      if (i == 1) {
+      //if (i == 0) {
         String setupInfo = inf.nextLine();
         int index = 0;
         while (index < 4) {
@@ -51,14 +49,32 @@ public class USACO{
           }
           index++;
         }
+        //i++
+      //}
+
+      int[][] lake = new int [rows][cols];
+      int counter = 0;
+
+      //System.out.println(lakeInfo);
+      for (int r = 0; r < rows; r++) {
+        String lakeInfo = inf.nextLine();
+        counter = 0;
+        //System.out.println
+        for (int c = 0; c < cols; c++) {
+          lake[r][c] = getNumber(lakeInfo, counter);
+          counter++;
+        }
       }
-    //}
 
-    System.out.println(rows);
-    System.out.println(cols);
-    System.out.println(elevation);
-    System.out.println(n);
-
+      String display = "";
+      for (int ro = 0; ro < rows; ro++) {
+        for (int c = 0; c < cols; c++) {
+          display += lake[ro][c] + " ";
+        }
+        display += "\n";
+      }
+      System.out.println(display);
+      System.out.println();
     return -10;
 
   }
