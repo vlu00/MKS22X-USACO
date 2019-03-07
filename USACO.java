@@ -98,29 +98,19 @@ public class USACO{
       lake = cowStomping(lake, directions[p][0], directions[p][1], directions[p][2]);
     }
 
+
     //pasture depths
+    int aggregatedDepth = 0;
     for (int r = 0; r < rows; r++) {
-      for (int c = 0; r < cols; c++) {
-        if (elevation - lake[r][c] < 0) {
-          lake[r][c] = 0;
-        }
-        else {
-          lake[r][c] = elevation - lake[r][c];
-        }
-      }
-    }
-
-
-    //to show lake map
-    String display = "";
-    for (int ro = 0; ro < rows; ro++) {
       for (int c = 0; c < cols; c++) {
-        display += lake[ro][c] + " ";
+        if (elevation - lake[r][c] > 0) {
+          aggregatedDepth += elevation - lake[r][c];
+        }
       }
-      display += "\n";
     }
 
-    return -10;
+    return aggregatedDepth * 72 * 72;
+
   }
 
   public static void main(String[] args) {
