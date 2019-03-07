@@ -2,6 +2,24 @@ import java.util.*;
 import java.io.*;
 
 public class USACO{
+
+  private static int getNumber(String s, int index) {
+    while (index > 0) {
+      s = s.substring(s.indexOf(" ")+1);
+      index--;
+    }
+    int i = s.indexOf(" ");
+    String num;
+    if (i == -1) {
+      num = s;
+    }
+    else {
+      num = s.substring(0, i);
+    }
+    return Integer.parseInt(num);
+  }
+
+
   public static int bronze(String filename) throws FileNotFoundException{
     File text = new File(filename);
     Scanner inf = new Scanner(text);
@@ -17,8 +35,8 @@ public class USACO{
       if (i == 1) {
         String setupInfo = inf.nextLine();
         int index = 0;
-        while (setup.hasNext()) {
-          int num = Integer.parseInt(setupInfo.charAt(index));
+        while (index < 4) {
+          int num = getNumber(setupInfo, index);
           if (index == 0) {
             rows = num;
           }
