@@ -29,54 +29,55 @@ public class USACO{
     int elevation = 0;
     int n = 0;
 
-    //while (inf.hasNextLine()) {
-      //if (i == 0) {
-        String setupInfo = inf.nextLine();
-        int index = 0;
-        while (index < 4) {
-          int num = getNumber(setupInfo, index);
-          if (index == 0) {
-            rows = num;
-          }
-          if (index == 1) {
-            cols = num;
-          }
-          if (index == 2) {
-            elevation = num;
-          }
-          else {
-            n = num;
-          }
-          index++;
-        }
-        //i++
-      //}
-
-      int[][] lake = new int [rows][cols];
-      int counter = 0;
-
-      //System.out.println(lakeInfo);
-      for (int r = 0; r < rows; r++) {
-        String lakeInfo = inf.nextLine();
-        counter = 0;
-        //System.out.println
-        for (int c = 0; c < cols; c++) {
-          lake[r][c] = getNumber(lakeInfo, counter);
-          counter++;
-        }
+    String setupInfo = inf.nextLine();
+    int index = 0;
+    while (index < 4) {
+      int num = getNumber(setupInfo, index);
+      if (index == 0) {
+        rows = num;
       }
-
-      String display = "";
-      for (int ro = 0; ro < rows; ro++) {
-        for (int c = 0; c < cols; c++) {
-          display += lake[ro][c] + " ";
-        }
-        display += "\n";
+      if (index == 1) {
+        cols = num;
       }
-      System.out.println(display);
-      System.out.println();
+      if (index == 2) {
+        elevation = num;
+      }
+      else {
+        n = num;
+      }
+      index++;
+    }
+    //sets up 2D array with lake depth values
+    int[][] lake = new int [rows][cols];
+    int counter = 0;
+    for (int r = 0; r < rows; r++) {
+      String lakeInfo = inf.nextLine();
+      for (int c = 0; c < cols; c++) {
+        lake[r][c] = getNumber(lakeInfo, c);
+      }
+    }
+    //sets up 2D array with farmer's directions
+    int[][] directions = new int[n][3];
+    for (int j = 0; j < n; j++) {
+      String directionInfo = inf.nextLine();
+      for (int k = 0; k < 3; k++) {
+        directions[j][k] = getNumber(directionInfo, k);
+      }
+    }
+
+
+    //to show lake map
+    String display = "";
+    for (int ro = 0; ro < n; ro++) {
+      for (int c = 0; c < 3; c++) {
+        display += directions[ro][c] + " ";
+      }
+      display += "\n";
+    }
+    System.out.println(display);
+    System.out.println();
+
     return -10;
-
   }
 
   public static void main(String[] args) {
