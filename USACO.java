@@ -19,6 +19,34 @@ public class USACO{
     return Integer.parseInt(num);
   }
 
+  public static int findGreatest(int[][] map, int row, int col, int[][] surroundings) {
+    int greatest = map[row+surroundings[0][0]][col+surroundings[0][1]];
+    for (int r = 0; r < surroundings.length; r++) {
+      if (map[row+surroundings[r][0]][col+surroundings[r][1]] > greatest) {
+        greatest = map[row+surroundings[r][0]][col+surroundings[r][1]];
+      }
+    }
+    return greatest;
+  }
+
+  public static int[][] cowStomping(int[][] map, int row, int col, int stomps) {
+    int [][] surrounding = new int [][] { {-1, -1}, {-1, 0}, {-1, 1},
+                                          {0, -1}, {0, 1},
+                                          {1, -1}, {1, 0}, {1, 1}};
+    int greatest = findGreatest(map, row, col, surrounding);
+    while (stomps > 0) {
+      for (int r = 0; r < surrounding.length; r++) {
+        int plot = map[row+surrounding[r][0]][col+surrounding[r][1]];
+        if (plot == greatest) {
+          map[row+surrounding[r][0]][col+surrounding[r][1]] = plot - 1;
+        }
+      }
+      stomps--;
+      greatest--;
+    }
+    return map;
+  }
+
 
   public static int bronze(String filename) throws FileNotFoundException{
     File text = new File(filename);
@@ -63,6 +91,10 @@ public class USACO{
       for (int k = 0; k < 3; k++) {
         directions[j][k] = getNumber(directionInfo, k);
       }
+    }
+    //
+    for (int p = 0; p < n; p++) {
+      lake = cowStomping(lake, directions[p][0], directions[p][1], directions[p][2]);
     }
 
 
