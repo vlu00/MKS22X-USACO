@@ -93,31 +93,33 @@ public class USACO{
       }
     }
 
-    //
+    //cowStomping
     for (int p = 0; p < n; p++) {
       lake = cowStomping(lake, directions[p][0], directions[p][1], directions[p][2]);
-
-      String display = "";
-      for (int ro = 0; ro < rows; ro++) {
-        for (int c = 0; c < cols; c++) {
-          display += lake[ro][c] + " ";
-        }
-        display += "\n";
-      }
-      System.out.println(display);
-
     }
 
-    /*
+    //pasture depths
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; r < cols; c++) {
+        if (elevation - lake[r][c] < 0) {
+          lake[r][c] = 0;
+        }
+        else {
+          lake[r][c] = elevation - lake[r][c];
+        }
+      }
+    }
+
+
     //to show lake map
     String display = "";
-    for (int ro = 0; ro < n; ro++) {
-      for (int c = 0; c < 3; c++) {
+    for (int ro = 0; ro < rows; ro++) {
+      for (int c = 0; c < cols; c++) {
         display += lake[ro][c] + " ";
       }
       display += "\n";
     }
-    */
+
     return -10;
   }
 
