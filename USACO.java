@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO{
 
-  private static int getNumber(String s, int index) {
+  private static int getNumber(String s, int index) { //returns the numbers that make up a string
     while (index > 0) {
       s = s.substring(s.indexOf(" ")+1);
       index--;
@@ -19,7 +19,7 @@ public class USACO{
     return Integer.parseInt(num);
   }
 
-  public static int findGreatest(int[][] map, int row, int col, int[][] surroundings) {
+  public static int findGreatest(int[][] map, int row, int col, int[][] surroundings) { //finds greatest elevation in 3 by 3 plot
     int greatest = map[row+surroundings[0][0]][col+surroundings[0][1]];
     for (int r = 0; r < surroundings.length; r++) {
       if (map[row+surroundings[r][0]][col+surroundings[r][1]] > greatest) {
@@ -30,19 +30,19 @@ public class USACO{
   }
 
   public static int[][] cowStomping(int[][] map, int row, int col, int stomps) {
-    int [][] surrounding = new int [][] { {-1, -1}, {-1, 0}, {-1, 1},
+    int [][] surrounding = new int [][] { {-1, -1}, {-1, 0}, {-1, 1}, //possible spots the cows can stomp
                                           {0, -1}, {0, 0}, {0, 1},
                                           {1, -1}, {1, 0}, {1, 1}};
-    int greatest = findGreatest(map, row, col, surrounding);
-    while (stomps > 0) {
-      for (int r = 0; r < surrounding.length; r++) {
+    int greatest = findGreatest(map, row, col, surrounding); //find the greatest
+    while (stomps > 0) { //while the cows sstill need to stomp
+      for (int r = 0; r < surrounding.length; r++) { //check each possible spot
         int plot = map[row+surrounding[r][0]][col+surrounding[r][1]];
-        if (plot == greatest) {
-          map[row+surrounding[r][0]][col+surrounding[r][1]] = plot - 1;
+        if (plot == greatest) { //if the spot is the greatest or one of the greatest elevations
+          map[row+surrounding[r][0]][col+surrounding[r][1]] = plot - 1; //cows stomp
         }
       }
-      stomps--;
-      greatest--;
+      stomps--; //cows have one less stomp
+      greatest--; //max elevation has decreased by 1
     }
     return map;
   }
@@ -57,6 +57,7 @@ public class USACO{
     int elevation = 0;
     int n = 0;
 
+    //setups up number of rows, columns, elevation and number of directions
     String setupInfo = inf.nextLine();
     int index = 0;
     while (index < 4) {
@@ -75,6 +76,7 @@ public class USACO{
       }
       index++;
     }
+
     //sets up 2D array with lake depth values
     int[][] lake = new int [rows][cols];
     int counter = 0;
@@ -84,6 +86,7 @@ public class USACO{
         lake[r][c] = getNumber(lakeInfo, c);
       }
     }
+
     //sets up 2D array with farmer's directions
     int[][] directions = new int[n][3];
     for (int j = 0; j < n; j++) {
@@ -98,8 +101,7 @@ public class USACO{
       lake = cowStomping(lake, directions[p][0], directions[p][1], directions[p][2]);
     }
 
-
-    //pasture depths
+    //adds postive, non-zero aggregatedDepths
     int aggregatedDepth = 0;
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
@@ -110,7 +112,6 @@ public class USACO{
     }
 
     return aggregatedDepth * 72 * 72;
-
   }
 
   public static void main(String[] args) {
