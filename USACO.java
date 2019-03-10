@@ -113,6 +113,29 @@ public class USACO{
     return aggregatedDepth * 72 * 72;
   }
 
+  private static int[][] cowMoves(int[][] map) {
+    for (int r = 0; r < map.length; r++) {
+      for (int c = 0; c < map[0].length; c++) {
+        if (map[r][c] != 0 && map[r][c] != -1) {
+          if (r-1 != -1 && map[r-1][c] != -1) {
+            map[r-1][c] = map[r-1][c] + 1;
+          }
+          if (r+1 != map.length && map[r+1][c] != -1) {
+            map[r+1][c] = map[r+1][c] + 1;
+          }
+          if (c-1 != -1 && map[r][c-1] != -1) {
+            map[r][c-1] = map[r][c-1] + 1;
+          }
+          if (c+1 != map[0].length && map[r][c+1] != -1) {
+            map[r][c+1] = map[r][c+1] + 1;
+          }
+          map[r][c] = 0;
+        }
+      }
+    }
+    return map;
+  }
+
   public static int silver(String filename) throws FileNotFoundException{
     File text = new File(filename);
     Scanner inf = new Scanner(text);
@@ -148,19 +171,10 @@ public class USACO{
           map[r][c] = 0;
         }
         else {
-          map[r][c] = 9;
+          map[r][c] = -1;
         }
       }
     }
-
-    String display = "";
-    for (int r = 0; r < rows; r++) {
-      for (int c = 0; c < cols; c++) {
-        display += map[r][c];
-      }
-      display += "\n";
-    }
-    System.out.println(display);
 
     //setups up number of rows, columns, moves(time)
     String startingInfo = inf.nextLine();
@@ -187,10 +201,20 @@ public class USACO{
       index++;
     }
 
-    System.out.println(startingRow);
-    System.out.println(startingCol);
-    System.out.println(endRow);
-    System.out.println(endCol);
+    map[startingRow][startingCol] = 1;
+    while (moves > 0) {
+      map = cowMoves(map);
+      moves--;
+    }
+
+    String display = "";
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
+        display += map[r][c];
+      }
+      display += "\n";
+    }
+    System.out.println(display);
 
     return -10;
 
