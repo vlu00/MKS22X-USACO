@@ -233,7 +233,9 @@ public class USACO{
       index++;
     }
 
-    map[startingRow][startingCol] = 1;
+    map[endRow][endCol] = 1;
+    System.out.println("original");
+    System.out.println(toString(map));
     while (moves > 0) {
       map = cowMoves(map);
       System.out.println(toString(map));
