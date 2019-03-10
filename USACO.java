@@ -113,17 +113,6 @@ public class USACO{
     return aggregatedDepth * 72 * 72;
   }
 
-  public static String toString(int[][] s) {
-    String display = "";
-    for (int r = 0;  r < s.length; r++) {
-      for (int c = 0; c < s[0].length; c++) {
-        display += s[r][c];
-      }
-      display += "\n";
-    }
-    return display;
-  }
-
   private static int[][] makeCopy(int [][] ma) {
     int [][] temp = new int[ma.length][ma[0].length];
     for (int i = 0; i < ma.length; i++) {
@@ -234,16 +223,6 @@ public class USACO{
 
     //return number of possible paths from starting position
     return map[startingRow][startingCol];
-
-  }
-
-  public static void main(String[] args) {
-    try {
-      System.out.println(silver("ctravel.in"));
-    }
-    catch (FileNotFoundException e) {
-      System.out.println("File Not Found");
-    }
   }
 
 }
