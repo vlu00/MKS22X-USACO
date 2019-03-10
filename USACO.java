@@ -79,7 +79,6 @@ public class USACO{
 
     //sets up 2D array with lake depth values
     int[][] lake = new int [rows][cols];
-    int counter = 0;
     for (int r = 0; r < rows; r++) {
       String lakeInfo = inf.nextLine();
       for (int c = 0; c < cols; c++) {
@@ -114,9 +113,92 @@ public class USACO{
     return aggregatedDepth * 72 * 72;
   }
 
+  public static int silver(String filename) throws FileNotFoundException{
+    File text = new File(filename);
+    Scanner inf = new Scanner(text);
+
+    int rows = 0;
+    int cols = 0;
+    int moves = 0;
+
+    //setups up number of rows, columns, moves(time)
+    String setupInfo = inf.nextLine();
+    int index = 0;
+    while (index < 3) {
+      int num = getNumber(setupInfo, index);
+      if (index == 0) {
+        rows = num;
+      }
+      if (index == 1) {
+        cols = num;
+      }
+      else {
+        moves = num;
+      }
+      index++;
+    }
+
+    //sets up 2D array with map
+    int[][] map = new int [rows][cols];
+    for (int r = 0; r < rows; r++) {
+      String mapInfo = inf.nextLine();
+      for (int c = 0; c < cols; c++) {
+        char word = mapInfo.charAt(c);
+        if (word == '.') {
+          map[r][c] = 0;
+        }
+        else {
+          map[r][c] = 9;
+        }
+      }
+    }
+
+    String display = "";
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
+        display += map[r][c];
+      }
+      display += "\n";
+    }
+    System.out.println(display);
+
+    //setups up number of rows, columns, moves(time)
+    String startingInfo = inf.nextLine();
+    int startingRow = 0;
+    int startingCol = 0;
+    int endRow = 0;
+    int endCol = 0;
+
+    index = 0;
+    while (index < 4) {
+      int num = getNumber(startingInfo, index);
+      if (index == 0) {
+        startingRow = num - 1;
+      }
+      if (index == 1) {
+        startingCol = num - 1;
+      }
+      if (index == 2) {
+        endRow = num - 1;
+      }
+      else {
+        endCol = num - 1;
+      }
+      index++;
+    }
+
+    System.out.println(startingRow);
+    System.out.println(startingCol);
+    System.out.println(endRow);
+    System.out.println(endCol);
+
+    return -10;
+
+  }
+
   public static void main(String[] args) {
     try {
-      System.out.println(bronze("makelake.in"));
+      System.out.println(silver("ctravel.in"));
     }
     catch (FileNotFoundException e) {
       System.out.println("File Not Found");
