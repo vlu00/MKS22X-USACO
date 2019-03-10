@@ -142,22 +142,22 @@ public class USACO{
       for (int c = 0; c < cols; c++) {
         if (original[r][c] != 0 && original[r][c] != -1) {
           if (r-1 != -1 && original[r-1][c] != -1) {
-            m[r-1][c] = m[r-1][c] + 1;
+            m[r-1][c] = m[r-1][c] + original[r][c];
             //System.out.println("Moving Up") ;
             // System.out.println(toString(map));
           }
           if (r+1 != rows && original[r+1][c] != -1) {
-            m[r+1][c] = m[r+1][c] + 1;
+            m[r+1][c] = m[r+1][c] + original[r][c];
             //System.out.println("Moving Down") ;
             //System.out.println(toString(map));
           }
           if (c-1 != -1 && original[r][c-1] != -1) {
-            m[r][c-1] = m[r][c-1] + 1;
+            m[r][c-1] = m[r][c-1] + original[r][c];
             //System.out.println("Moving Left") ;
             //System.out.println(toString(map));
           }
           if (c+1 != cols && original[r][c+1] != -1) {
-            m[r][c+1] = m[r][c+1] + 1;
+            m[r][c+1] = m[r][c+1] + original[r][c];
             //System.out.println("Moving Right") ;
             //System.out.println(toString(map));
           }
@@ -234,11 +234,13 @@ public class USACO{
     }
 
     map[startingRow][startingCol] = 1;
-    //while (moves > 0) {
+    while (moves > 0) {
       map = cowMoves(map);
       System.out.println(toString(map));
-      //moves--;
-    //}
+      moves--;
+    }
+
+    System.out.println(toString(map));
 
     return -10;
 
