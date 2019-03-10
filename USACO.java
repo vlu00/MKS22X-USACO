@@ -143,23 +143,15 @@ public class USACO{
         if (original[r][c] != 0 && original[r][c] != -1) {
           if (r-1 != -1 && original[r-1][c] != -1) {
             m[r-1][c] = m[r-1][c] + original[r][c];
-            //System.out.println("Moving Up") ;
-            // System.out.println(toString(map));
           }
           if (r+1 != rows && original[r+1][c] != -1) {
             m[r+1][c] = m[r+1][c] + original[r][c];
-            //System.out.println("Moving Down") ;
-            //System.out.println(toString(map));
           }
           if (c-1 != -1 && original[r][c-1] != -1) {
             m[r][c-1] = m[r][c-1] + original[r][c];
-            //System.out.println("Moving Left") ;
-            //System.out.println(toString(map));
           }
           if (c+1 != cols && original[r][c+1] != -1) {
             m[r][c+1] = m[r][c+1] + original[r][c];
-            //System.out.println("Moving Right") ;
-            //System.out.println(toString(map));
           }
           m[r][c] = 0;
         }
@@ -203,7 +195,7 @@ public class USACO{
           map[r][c] = 0;
         }
         else {
-          map[r][c] = 9;
+          map[r][c] = -1;
         }
       }
     }
@@ -233,18 +225,15 @@ public class USACO{
       index++;
     }
 
+    //working backwards from the end position, look at how many moves can get you there
     map[endRow][endCol] = 1;
-    System.out.println("original");
-    System.out.println(toString(map));
     while (moves > 0) {
       map = cowMoves(map);
-      System.out.println(toString(map));
       moves--;
     }
 
-    System.out.println(toString(map));
-
-    return -10;
+    //return number of possible paths from starting position
+    return map[startingRow][startingCol];
 
   }
 
