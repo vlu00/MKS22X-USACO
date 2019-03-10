@@ -113,27 +113,59 @@ public class USACO{
     return aggregatedDepth * 72 * 72;
   }
 
-  private static int[][] cowMoves(int[][] map) {
-    for (int r = 0; r < map.length; r++) {
-      for (int c = 0; c < map[0].length; c++) {
-        if (map[r][c] != 0 && map[r][c] != -1) {
-          if (r-1 != -1 && map[r-1][c] != -1) {
-            map[r-1][c] = map[r-1][c] + 1;
+  public static String toString(int[][] s) {
+    String display = "";
+    for (int r = 0;  r < s.length; r++) {
+      for (int c = 0; c < s[0].length; c++) {
+        display += s[r][c];
+      }
+      display += "\n";
+    }
+    return display;
+  }
+
+  private static int[][] makeCopy(int [][] ma) {
+    int [][] temp = new int[ma.length][ma[0].length];
+    for (int i = 0; i < ma.length; i++) {
+      for (int n = 0; n < ma[0].length; n++) {
+        temp[i][n] = ma[i][n];
+      }
+    }
+    return temp;
+  }
+
+  private static int[][] cowMoves(int[][] m) {
+    int [][] original = makeCopy(m);
+    int rows = m.length;
+    int cols = m[0].length;
+    for (int r = 0; r < rows; r++) {
+      for (int c = 0; c < cols; c++) {
+        if (original[r][c] != 0 && original[r][c] != -1) {
+          if (r-1 != -1 && original[r-1][c] != -1) {
+            m[r-1][c] = m[r-1][c] + 1;
+            //System.out.println("Moving Up") ;
+            // System.out.println(toString(map));
           }
-          if (r+1 != map.length && map[r+1][c] != -1) {
-            map[r+1][c] = map[r+1][c] + 1;
+          if (r+1 != rows && original[r+1][c] != -1) {
+            m[r+1][c] = m[r+1][c] + 1;
+            //System.out.println("Moving Down") ;
+            //System.out.println(toString(map));
           }
-          if (c-1 != -1 && map[r][c-1] != -1) {
-            map[r][c-1] = map[r][c-1] + 1;
+          if (c-1 != -1 && original[r][c-1] != -1) {
+            m[r][c-1] = m[r][c-1] + 1;
+            //System.out.println("Moving Left") ;
+            //System.out.println(toString(map));
           }
-          if (c+1 != map[0].length && map[r][c+1] != -1) {
-            map[r][c+1] = map[r][c+1] + 1;
+          if (c+1 != cols && original[r][c+1] != -1) {
+            m[r][c+1] = m[r][c+1] + 1;
+            //System.out.println("Moving Right") ;
+            //System.out.println(toString(map));
           }
-          map[r][c] = 0;
+          m[r][c] = 0;
         }
       }
     }
-    return map;
+    return m;
   }
 
   public static int silver(String filename) throws FileNotFoundException{
@@ -171,7 +203,7 @@ public class USACO{
           map[r][c] = 0;
         }
         else {
-          map[r][c] = -1;
+          map[r][c] = 9;
         }
       }
     }
@@ -202,19 +234,11 @@ public class USACO{
     }
 
     map[startingRow][startingCol] = 1;
-    while (moves > 0) {
+    //while (moves > 0) {
       map = cowMoves(map);
-      moves--;
-    }
-
-    String display = "";
-    for (int r = 0; r < rows; r++) {
-      for (int c = 0; c < cols; c++) {
-        display += map[r][c];
-      }
-      display += "\n";
-    }
-    System.out.println(display);
+      System.out.println(toString(map));
+      //moves--;
+    //}
 
     return -10;
 
